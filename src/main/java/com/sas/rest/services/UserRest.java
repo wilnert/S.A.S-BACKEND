@@ -132,18 +132,13 @@ public class UserRest {
         return userEJB.findByIdentificationNumber(identificationNumber) == null;
     }
 
-    /**
-     * This method allows to modify the personal user information
-     *
-     * @param newUser
-     */
+   
     @PUT
-    public void edit(User newUser) {
-        User oldUser = userEJB.find(newUser.getId());
-        if (!newUser.getPassword().equals(oldUser.getPassword())) {
-            newUser.setPassword(DigestUtil.cifrarPassword(newUser.getPassword()));
-        }
-        userEJB.edit(newUser);
+    @Path("{id}")
+    public void update(@PathParam("id") Integer id, User user) {
+        
+            userEJB.edit(user);
+         
     }
 
     /**
