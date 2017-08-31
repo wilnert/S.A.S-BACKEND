@@ -83,12 +83,13 @@ public class UserRest {
     /**
      * This method receives the user data from the frontend and creates the user
      *
+     * @param id     
      * @param user
      * @return
      */
     @POST
-    @Path("{rol}")
-    public Response create(@PathParam("rol") String rol,User user) {
+    @Path("{id}")
+    public Response create(@PathParam("id") String id,User user) {
 
         GsonBuilder gsonBuilder = new GsonBuilder();
         Gson gson = gsonBuilder.create();
@@ -98,7 +99,7 @@ public class UserRest {
             if (validateUserByEmail(user.getEmail())) {
 
                 List<Rol> rolList = new ArrayList<>();
-                rolList.add(new Rol(rol));
+                rolList.add(new Rol(id));
                 user.setPassword(DigestUtil.cifrarPassword(user.getPassword()));
                 user.setRolList(rolList);
                 userEJB.create(user);

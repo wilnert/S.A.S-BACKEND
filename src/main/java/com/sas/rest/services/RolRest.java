@@ -24,7 +24,7 @@ import javax.ws.rs.core.MediaType;
  *
  * @author grayf
  */
-@Path("departments")
+@Path("roles")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class RolRest {

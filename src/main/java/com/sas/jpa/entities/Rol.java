@@ -24,7 +24,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author darkreaven
+ * @author adsi1199561
  */
 @Entity
 @Table(name = "rol")
@@ -39,7 +39,7 @@ public class Rol implements Serializable {
     @Id
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 20)
+    @Size(min = 1, max = 45)
     @Column(name = "id")
     private String id;
     @Basic(optional = false)
@@ -47,7 +47,9 @@ public class Rol implements Serializable {
     @Size(min = 1, max = 45)
     @Column(name = "description")
     private String description;
-    @ManyToMany(mappedBy = "rolList")
+
+    
+        @ManyToMany(mappedBy = "rolList")
     private List<User> userList;
 
     public Rol() {
@@ -109,7 +111,7 @@ public class Rol implements Serializable {
 
     @Override
     public String toString() {
-        return id;
+        return "com.sas.jpa.entities.Rol[ id=" + id + " ]";
     }
     
 }

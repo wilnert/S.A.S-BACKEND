@@ -21,7 +21,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author darkreaven
+ * @author adsi1199561
  */
 @Entity
 @Table(name = "equipment")
@@ -146,7 +146,7 @@ public class Equipment implements Serializable {
 
     @Override
     public String toString() {
-        return "com.sas.entities.Equipment[ id=" + id + " ]";
+        return "com.sas.jpa.entities.Equipment[ id=" + id + " ]";
     }
     
 }

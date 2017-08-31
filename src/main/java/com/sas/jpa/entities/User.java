@@ -11,6 +11,8 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -27,7 +29,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author darkreaven
+ * @author adsi1199561
  */
 @Entity
 @Table(name = "user")
@@ -39,13 +41,14 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "User.findByLastname", query = "SELECT u FROM User u WHERE u.lastname = :lastname")
     , @NamedQuery(name = "User.findByIdentification", query = "SELECT u FROM User u WHERE u.identification = :identification")
     , @NamedQuery(name = "User.findByPassword", query = "SELECT u FROM User u WHERE u.password = :password")
-    , @NamedQuery(name = "User.findByEmail", query = "SELECT u FROM User u WHERE u.email = :email")})
+    , @NamedQuery(name = "User.findByEmail", query = "SELECT u FROM User u WHERE u.email = :email")
+    , @NamedQuery(name = "User.findByActive", query = "SELECT u FROM User u WHERE u.active = :active")})
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
     @Column(name = "id")
     private Integer id;
     @Basic(optional = false)
@@ -65,7 +68,7 @@ public class User implements Serializable {
     private String identification;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 45)
+    @Size(min = 1, max = 100)
     @Column(name = "password")
     private String password;
     // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
@@ -74,16 +77,13 @@ public class User implements Serializable {
     @Size(min = 1, max = 45)
     @Column(name = "email")
     private String email;
-    
+    @Basic(optional = false)
     @NotNull
     @Column(name = "active")
     private boolean active;
-    
-     @JoinTable(name = "user_has_rol", joinColumns = {
+        @JoinTable(name = "user_has_rol", joinColumns = {
         @JoinColumn(name = "id_user", referencedColumnName = "id")}, inverseJoinColumns = {
-        @JoinColumn(name = "id_rol", referencedColumnName = "id")})
-    
-    
+        @JoinColumn(name =  "id_rol", referencedColumnName = "id")})
     @ManyToMany
     private List<Rol> rolList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUser")
@@ -99,14 +99,14 @@ public class User implements Serializable {
         this.id = id;
     }
 
-    public User(Integer id, String name, String lastname,boolean active ,String identification, String password, String email) {
+    public User(Integer id, String name, String lastname, String identification, String password, String email, boolean active) {
         this.id = id;
         this.name = name;
         this.lastname = lastname;
         this.identification = identification;
         this.password = password;
         this.email = email;
-         this.active = active;
+        this.active = active;
     }
 
     public Integer getId() {
@@ -140,14 +140,6 @@ public class User implements Serializable {
     public void setIdentification(String identification) {
         this.identification = identification;
     }
-    
-      public boolean getActive() {
-        return active;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
-    }
 
     public String getPassword() {
         return password;
@@ -165,6 +157,15 @@ public class User implements Serializable {
         this.email = email;
     }
 
+    public boolean getActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+ 
     public List<Rol> getRolList() {
         return rolList;
     }
@@ -212,7 +213,7 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "com.sas.entities.User[ id=" + id + " ]";
+        return "com.sas.jpa.entities.User[ id=" + id + " ]";
     }
     
 }

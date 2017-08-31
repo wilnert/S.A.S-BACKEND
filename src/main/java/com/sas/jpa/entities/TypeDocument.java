@@ -23,7 +23,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author darkreaven
+ * @author adsi1199561
  */
 @Entity
 @Table(name = "type_document")
@@ -107,7 +107,7 @@ public class TypeDocument implements Serializable {
 
     @Override
     public String toString() {
-        return "com.sas.entities.TypeDocument[ id=" + id + " ]";
+        return "com.sas.jpa.entities.TypeDocument[ id=" + id + " ]";
     }
     
 }
